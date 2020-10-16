@@ -6,10 +6,12 @@
 
 package vhremake.Entities;
 
-import com.sun.prism.impl.BufferUtil;
 import java.awt.Graphics2D;
 import java.nio.FloatBuffer;
+
+import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL2;
+
 /**
  *
  * @author John
@@ -22,7 +24,7 @@ public class Nebula extends Entity{
         this.big = big;
         this.y = y;
         this.type = Entity.TYPE.EFFECT;
- graphic = BufferUtil.newFloatBuffer(56+24);
+
         float[]b = new float[]{
                                .5f,1,.5f, .1f,  1,1,1,   0,-big/2,0,
                                .5f,1,.5f, .1f,  1,1,1,   big/2,0,0,
@@ -34,8 +36,7 @@ public class Nebula extends Entity{
                                .6f,1,.6f, .1f,  1,1,1,   big,0,0,
                                .6f,1,.6f, .1f  ,1,1,1,   0,big,0,
                                .6f,1,.6f, .1f,  1,1,1,   -big,0,0};
-        graphic.put(b);
-        graphic.rewind();
+        graphic = Buffers.newDirectFloatBuffer(b);
     }
     @Override
     public void draw(Graphics2D g, int vx, int vy)
